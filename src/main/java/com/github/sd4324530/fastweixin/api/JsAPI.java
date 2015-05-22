@@ -46,6 +46,12 @@ public class JsAPI extends BaseAPI {
      */
     public GetSignatureResponse getSignature(String nonceStr, long timestame, String url) {
         BeanUtil.requireNonNull(url, "请传入当前网页的URL，不包含#及其后面部分");
+
+        // 不是很好的办法 超时的时候请求一个其他api刷新 access token 和 js ticket
+        if(System.currentTimeMillis()-this.config.getJsTokenStartTime() > 7100000){
+            executeGet(BASE_API_URL + "cgi-bin/getcallbackip?access_token=#");
+        }
+
         GetSignatureResponse response = new GetSignatureResponse();
         String jsApiTicket = this.config.getJsApiTicket();
         String sign;

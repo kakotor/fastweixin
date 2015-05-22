@@ -91,6 +91,10 @@ public final class ApiConfig implements Serializable {
         this.enableJsApi = enableJsApi;
     }
 
+    public long getJsTokenStartTime() {
+        return jsTokenStartTime;
+    }
+
     /**
      * 初始化微信配置，即第一次获取access_token
      */
